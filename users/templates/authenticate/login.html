@@ -1,0 +1,26 @@
+{% extends "anasayfa/layout.html" %}
+{% load static %}
+
+{% block header %}
+Kullanıcı Girişi
+{% endblock%}
+
+{% block content %}
+
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Kullanıcı Adı</label>
+        <input type="text" class="form-control" name="username" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Şifre</label>
+        <input type="password" class="form-control" name="password">
+      </div>
+      <input type="submit" value="Giriş" class="btn btn-secondary">
+      <a href="{% url 'register_user' %}"><button type="button" class="btn btn-secondary">Kayıt Ol</button></a>
+    </form>
+
+
+{% endblock %}

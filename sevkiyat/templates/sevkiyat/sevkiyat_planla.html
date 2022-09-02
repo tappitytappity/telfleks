@@ -1,0 +1,102 @@
+{% extends "anasayfa/layout.html" %}
+{% load static %}
+
+{% block header %}
+Sevkiyat Planı
+{% endblock%}
+
+{% block content %}
+<form action="" method=POST>
+  {% csrf_token %}
+  <button class="btn btn-outline-secondary btn-sm" type="submit">Sevkiyat Planını Onayla</button>
+  <a href="{% url 'otomatik_sec' %}" class="btn btn-outline-secondary btn-sm">Otomatik Seç</a>
+  <a href="{% url 'sevkiyat_secimleri_kaldir' %}" class="btn btn-outline-secondary btn-sm">Tüm Seçimleri Sil</a>
+  <br></br>
+
+  <div class="accordion accordion-icon-toggle" id="accordion_1">
+    {% for firma in firmalar %}
+      <div class="accordion-item">
+        {% if forloop.first %}
+          <h2 class="accordion-header" id="accordion_1_header_{{firma.id}}">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_1_body_{{firma.id}}" aria-expanded="true" aria-controls="accordion_1_body_{{firma.id}}">
+              {{firma.cari_unvani}}
+            </button>
+          </h2>
+          <div id="accordion_1_body_{{firma.id}}" class="accordion-collapse collapse show" aria-labelledby="accordion_1_header_{{firma.id}}" data-bs-parent="#accordion_1">
+            <div class="accordion-body">
+              <table class="table">
+                <tbody>
+                  <tr><th scope="col">#</th><th scope="col">Siparis Tarihi</th><th scope="col">Siparis No</th><th scope="col">Belge No</th><th scope="col">Teslim Tarihi</th><th scope="col">Stok Kodu</th><th scope="col">Miktar</th></tr>
+                  {% for siparis in siparisler %}
+                    {% if siparis.siparis_musteri == firma %}
+                      <tr>
+                        <td scope="col">
+                          <div class="form-check">
+                            {% if siparis.sevkiyat_secim %}
+                              <input class="form-check-input" type="checkbox" value={{siparis.id}} name="boxes" checked="checked">
+                            {% else %}
+                              <input class="form-check-input" type="checkbox" value={{siparis.id}} name="boxes">
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td scope="col">{{siparis.siparis_siparistar|safe}}</td>
+                        <td scope="col">{{siparis.siparis_no}}</td>
+                        <td scope="col">{{siparis.siparis_belgeno}}</td>
+                        <td scope="col">{{siparis.siparis_teslimtar|safe}}</td>
+                        <td scope="col">{{siparis.siparis_stok.stok_kodu}}</td>
+                        <td scope="col">{{siparis.siparis_kalanmiktar}}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% else %}
+          <h2 class="accordion-header" id="accordion_1_header_{{firma.id}}">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion_1_body_{{firma.id}}" aria-expanded="false" aria-controls="accordion_1_body_{{firma.id}}">
+              {{firma.cari_unvani}}
+            </button>
+          </h2>
+          <div id="accordion_1_body_{{firma.id}}" class="accordion-collapse collapse" aria-labelledby="accordion_1_header_{{firma.id}}" data-bs-parent="#accordion_1">
+            <div class="accordion-body">
+              <table class="table">
+                <tbody>
+                  <tr><th scope="col">#</th><th scope="col">Siparis Tarihi</th><th scope="col">Siparis No</th><th scope="col">Belge No</th><th scope="col">Teslim Tarihi</th><th scope="col">Stok Kodu</th><th scope="col">Miktar</th></tr>
+                  {% for siparis in siparisler %}
+                    {% if siparis.siparis_musteri == firma %}
+                      <tr>
+                        <td scope="col">
+                          <div class="form-check">
+                            {% if siparis.sevkiyat_secim %}
+                              <input class="form-check-input" type="checkbox" value={{siparis.id}} name="boxes" checked="checked>
+                            {% else %}
+                              <input class="form-check-input" type="checkbox" value={{siparis.id}} name="boxes">
+                            {% endif %}
+                          </div>
+                        </td>
+                        <td scope="col">{{siparis.siparis_siparistar|safe}}</td>
+                        <td scope="col">{{siparis.siparis_no}}</td>
+                        <td scope="col">{{siparis.siparis_belgeno}}</td>
+                        <td scope="col">{{siparis.siparis_teslimtar|safe}}</td>
+                        <td scope="col">{{siparis.siparis_stok.stok_kodu}}</td>
+                        <td scope="col">{{siparis.siparis_kalanmiktar}}</td>
+                      </tr>
+                    {% endif %}
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("header_sevkiyat").setAttribute("class", "nav-link active");
+  });
+</script>
+
+{% endblock %}

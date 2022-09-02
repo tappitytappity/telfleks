@@ -1,0 +1,201 @@
+{% extends "anasayfa/layout.html" %}
+{% load static %}
+
+{% block header %}
+Üretim Planı
+{% endblock%}
+
+{% block content %}
+
+<a href="{% url 'eksikler_hesapla' %}" class="btn btn-outline-secondary btn-sm">Eksikler Hesapla</a>
+<br></br>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        {{this_week}}
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-A1-tab" data-bs-toggle="tab" data-bs-target="#nav-A1" type="button" role="tab" aria-controls="nav-A1" aria-selected="true">A Bantı</button>
+            <button class="nav-link" id="nav-O1-tab" data-bs-toggle="tab" data-bs-target="#nav-O1" type="button" role="tab" aria-controls="nav-O1" aria-selected="false">O Bantı</button>
+            <button class="nav-link" id="nav-M1-tab" data-bs-toggle="tab" data-bs-target="#nav-M1" type="button" role="tab" aria-controls="nav-M1" aria-selected="false">M Bantı</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-A1" role="tabpanel" aria-labelledby="nav-A1-tab">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">Tarih</th><th scope="col">Ürün Kodu</th><th scope="col">Müşteri</th><th scope="col">Miktar</th></tr>
+              </thead>
+              <tbody>
+                <tr><td scope="col">22/08/2022</td><td scope="col">281451A</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr><td scope="col">22/08/2022</td><td scope="col">282450GA</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr><td scope="col">22/08/2022</td><td scope="col">282453GA</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">23/08/2022</td><td scope="col">282455GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr><td scope="col">23/08/2022</td><td scope="col">282458GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">24/08/2022</td><td scope="col">282459GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">237210FB</td><td scope="col"></td><td scope="col">160</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">26/08/2022</td><td scope="col">237211FB</td><td scope="col"></td><td scope="col">160</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="nav-O1" role="tabpanel" aria-labelledby="nav-O1-tab">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">Tarih</th><th scope="col">Ürün Kodu</th><th scope="col">Müşteri</th><th scope="col">Miktar</th></tr>
+              </thead>
+              <tbody>
+                <tr><td scope="col">22/08/2022</td><td scope="col">237174FB</td><td scope="col">TEMSA</td><td scope="col">60</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">23/08/2022</td><td scope="col">237174FB</td><td scope="col">TEMSA</td><td scope="col">60</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">24/08/2022</td><td scope="col">237174FB</td><td scope="col">TEMSA</td><td scope="col">40</td></tr>
+                <tr><td scope="col">24/08/2022</td><td scope="col">282120GC</td><td scope="col"></td><td scope="col">6</td></tr>
+                <tr><td scope="col">24/08/2022</td><td scope="col">282171GA</td><td scope="col"></td><td scope="col">2</td></tr>
+                <tr><td scope="col">24/08/2022</td><td scope="col">282270GA</td><td scope="col"></td><td scope="col">5</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">282340GA</td><td scope="col"></td><td scope="col">10</td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">282350GA</td><td scope="col"></td><td scope="col">6</td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">282360GA</td><td scope="col"></td><td scope="col">2</td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">282370GA</td><td scope="col"></td><td scope="col">6</td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">282400GA</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">26/08/2022</td><td scope="col">282526GA</td><td scope="col"></td><td scope="col">2</td></tr>
+                <tr><td scope="col">26/08/2022</td><td scope="col">282535GA</td><td scope="col"></td><td scope="col">12</td></tr>
+                <tr><td scope="col">26/08/2022</td><td scope="col">208020FA</td><td scope="col"></td><td scope="col">100</td></tr>
+              </tbody>
+            </table></div>
+          <div class="tab-pane fade" id="nav-M1" role="tabpanel" aria-labelledby="nav-M1-tab">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">Tarih</th><th scope="col">Ürün Kodu</th><th scope="col">Müşteri</th><th scope="col">Miktar</th></tr>
+              </thead>
+              <tbody>
+                <tr><td scope="col">22/08/2022</td><td scope="col">281451A</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr><td scope="col">22/08/2022</td><td scope="col">282450GA</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr><td scope="col">22/08/2022</td><td scope="col">282453GA</td><td scope="col"></td><td scope="col">50</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">23/08/2022</td><td scope="col">282455GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr><td scope="col">23/08/2022</td><td scope="col">282458GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">24/08/2022</td><td scope="col">282459GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">25/08/2022</td><td scope="col">237210FB</td><td scope="col">TEMSA</td><td scope="col">160</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">26/08/2022</td><td scope="col">237211FB</td><td scope="col">TEMSA</td><td scope="col">160</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        {{next_week}}
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-A2-tab" data-bs-toggle="tab" data-bs-target="#nav-A2" type="button" role="tab" aria-controls="nav-A2" aria-selected="true">A Bantı</button>
+            <button class="nav-link" id="nav-O2-tab" data-bs-toggle="tab" data-bs-target="#nav-O2" type="button" role="tab" aria-controls="nav-O2" aria-selected="false">O Bantı</button>
+            <button class="nav-link" id="nav-M2-tab" data-bs-toggle="tab" data-bs-target="#nav-M2" type="button" role="tab" aria-controls="nav-M2" aria-selected="false">M Bantı</button>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-A2" role="tabpanel" aria-labelledby="nav-A2-tab">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">Tarih</th><th scope="col">Ürün Kodu</th><th scope="col">Müşteri</th><th scope="col">Miktar</th></tr>
+              </thead>
+              <tbody>
+                <tr><td scope="col">29/08/2022</td><td scope="col">281271A</td><td scope="col"></td><td scope="col">65</td></tr>
+                <tr><td scope="col">29/08/2022</td><td scope="col">224103FC</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr><td scope="col">29/08/2022</td><td scope="col">224104FC</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">224103YC</td><td scope="col"></td><td scope="col">146</td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">209190YD</td><td scope="col"></td><td scope="col">138</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">01/09/2022</td><td scope="col">209191YD</td><td scope="col"></td><td scope="col">124</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">02/09/2022</td><td scope="col">209192YCGA</td><td scope="col"></td><td scope="col">24</td></tr>
+                <tr><td scope="col">02/09/2022</td><td scope="col">209193YCGA</td><td scope="col"></td><td scope="col">48</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="nav-O2" role="tabpanel" aria-labelledby="nav-O2-tab">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">Tarih</th><th scope="col">Ürün Kodu</th><th scope="col">Müşteri</th><th scope="col">Miktar</th></tr>
+              </thead>
+              <tbody>
+                <tr><td scope="col">29/08/2022</td><td scope="col">264008FA</td><td scope="col"></td><td scope="col">30</td></tr>
+                <tr><td scope="col">29/08/2022</td><td scope="col">282200GA</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr><td scope="col">29/08/2022</td><td scope="col">282310GA</td><td scope="col"></td><td scope="col">20</td></tr>
+                <tr><td scope="col">29/08/2022</td><td scope="col">282531GA</td><td scope="col"></td><td scope="col">4</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">282561GA</td><td scope="col"></td><td scope="col">20</td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">282040VC</td><td scope="col"></td><td scope="col">100</td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">282321GA</td><td scope="col"></td><td scope="col">10</td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">282563GA</td><td scope="col"></td><td scope="col">6</td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">281180A</td><td scope="col"></td><td scope="col">60</td></tr>
+                <tr><td scope="col">31/08/2022</td><td scope="col">209030YA</td><td scope="col"></td><td scope="col">77</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">01/09/2022</td><td scope="col">209050YA</td><td scope="col"></td><td scope="col">62</td></tr>
+                <tr><td scope="col">01/09/2022</td><td scope="col">209291YC</td><td scope="col"></td><td scope="col">2</td></tr>
+                <tr><td scope="col">01/09/2022</td><td scope="col">209324YC</td><td scope="col"></td><td scope="col">3</td></tr>
+                <tr><td scope="col">01/09/2022</td><td scope="col">924060FA</td><td scope="col"></td><td scope="col">10</td></tr>
+                <tr><td scope="col">01/09/2022</td><td scope="col">924061FA</td><td scope="col"></td><td scope="col">10</td></tr>
+                <tr style="border-bottom:1px solid black"><td colspan="100%"></td></tr>
+                <tr><td scope="col">02/09/2022</td><td scope="col">224081YC</td><td scope="col"></td><td scope="col">205</td></tr>
+              </tbody>
+            </table></div>
+          <div class="tab-pane fade" id="nav-M2" role="tabpanel" aria-labelledby="nav-M2-tab">
+            <table class="table">
+              <thead>
+                <tr><th scope="col">Tarih</th><th scope="col">Ürün Kodu</th><th scope="col">Müşteri</th><th scope="col">Miktar</th></tr>
+              </thead>
+              <tbody>
+                <tr><td scope="col">08/08/2022</td><td scope="col">207236FA</td><td scope="col">SERDAR</td><td scope="col">480</td></tr>
+                <tr><td scope="col">08/08/2022</td><td scope="col">207198FA</td><td scope="col">SERDAR</td><td scope="col">240</td></tr>
+                <tr><td scope="col">08/08/2022</td><td scope="col">286087FA</td><td scope="col">PİLOT</td><td scope="col">30</td></tr>
+
+                <tr><td scope="col">09/08/2022</td><td scope="col">207549FA</td><td scope="col">SERDAR</td><td scope="col">1332</td></tr>
+
+                <tr><td scope="col">10/08/2022</td><td scope="col">207549FA</td><td scope="col">KARSAN</td><td scope="col">100</td></tr>
+
+                <tr><td scope="col">11/08/2022</td><td scope="col">108030FA</td><td scope="col">SPAREX</td><td scope="col">245</td></tr>
+                <tr><td scope="col">11/08/2022</td><td scope="col">117015GA</td><td scope="col">FRIKE</td><td scope="col">10</td></tr>
+                <tr><td scope="col">11/08/2022</td><td scope="col">117031GA</td><td scope="col">FRIKE</td><td scope="col">250</td></tr>
+                <tr><td scope="col">11/08/2022</td><td scope="col">117033GA</td><td scope="col">FRIKE</td><td scope="col">50</td></tr>
+
+                <tr><td scope="col">12/08/2022</td><td scope="col">124072YB</td><td scope="col">YEDEK PARÇA</td><td scope="col">525</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById("header_uretim").setAttribute("class", "nav-link active");
+  });
+</script>
+
+{% endblock %}

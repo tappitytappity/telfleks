@@ -1,0 +1,221 @@
+{% extends "anasayfa/layout.html" %}
+{% load static %}
+
+{% block header %} Stoklar {% endblock%}
+
+<!-- url 'urun_ara' -->
+{% block searchbox %}
+<form class="row g-2" method=POST action="{% url 'stok_ara' %}">
+	{% csrf_token %}
+	<div class="col-auto">
+    <input type="search" class="form-control me-1" placeholder="Stok Kodu" aria-label="Search" name="aranan">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-secondary me-1">Ürün Ara</button>
+  </div>
+</form>
+{% endblock%}
+
+{% block content %}
+
+	{% if stoklar %}
+		<center>
+			{% for stok in stoklar %}
+			<div class="container">
+				<div class="card">
+					<div class="row g-0">
+
+						<!-- stok resim -->
+						<div class="col-md-8">
+							{% if stok.stok_ozellik.ozellik_img  %}
+								{% with KLASORLER.IMG|add:stok.stok_ozellik.ozellik_img as img_file %}
+									<img src="{% static img_file %}" class="card-img-top">
+								{% endwith %}
+							{% else %}
+								<img src="{% static 'anasayfa/No_Img.png' %}" class="card-img-top">
+							{% endif %}
+						</div>
+
+						<!-- stok ozellikleri -->
+						<div class="col-md-4">
+							<div class="card-body">
+								<h5 class="card-title">{{ stok.stok_kodu }} <br></br> ({{ stok.stok_adi }})</h5>
+								{% if stok.stok_ozellik is None %}
+									<p class="card-text">
+										<a href="{% url 'guncelle' 'StokOzellik' %}" class="btn btn-outline-secondary btn-sm">Bilgi Ekle</a>
+									</p>
+								{% else %}
+									<p class="card-text">
+										<table class="table table-borderless">
+											<tbody>
+												{% if stok.stok_muhasebe_kodu is '152' %}
+													<tr><th scope="row">Stok Türü</th><td>{{stok.stok_ozellik.ozellik_stok_turu}}</td></tr>
+													<tr><th scope="row">Orjinal No</th><td>{{stok.stok_ozellik.ozellik_orjno}}</td></tr>
+													<tr><th scope="row">Test 1</th><td>{{stok.stok_ozellik.ozellik_test_01}}</td></tr>
+													<tr><th scope="row">Test 2</th><td>{{stok.stok_ozellik.ozellik_test_02}}</td></tr>
+													<tr><th scope="row">Test 3</th><td>{{stok.stok_ozellik.ozellik_test_03}}</td></tr>
+												{% else %}
+													<tr><th scope="row">Stok Türü</th><td>{{stok.stok_ozellik.ozellik_stok_turu}}</td></tr>
+													<tr><th scope="row">Malzeme</th><td>{{stok.stok_ozellik.ozellik_malzeme}}</td></tr>
+													<tr><th scope="row">Sıkma Çapı</th><td>{{stok.stok_ozellik.ozellik_sikma_capi}}</td></tr>
+													<tr><th scope="row">İç Çap</th><td>{{stok.stok_ozellik.ozellik_ic_cap}}</td></tr>
+													<tr><th scope="row">Finish</th><td>{{stok.stok_ozellik.ozellik_kaplama}}</td></tr>
+													<tr><th scope="row">Uzunluk</th><td>{{stok.stok_ozellik.ozellik_uzunluk}}</td></tr>
+													<tr><th scope="row">Renk</th><td>{{stok.stok_ozellik.ozellik_renk}}</td></tr>
+												{% endif %}
+											</tbody>
+										</table>
+									</p>
+									<p class="card-text">
+										<a href="{% url 'guncelle' 'StokOzellik' stok.stok_ozellik.id %}" class="btn btn-outline-secondary btn-sm">Bilgileri Güncelle</a>
+										{% if stok.stok_ozellik.ozellik_pdf  %}
+											{% with KLASORLER.PDF|add:stok.stok_ozellik.ozellik_pdf as pdf_file %}
+												{% if stok.stok_ozellik.pdf_guncel %}
+													<a href="{% static pdf_file %}" target="blank" class="btn btn-outline-secondary btn-sm">Teknik Resim</a>
+												{% else %}
+													<a href="{% static pdf_file %}" target="blank" class="btn btn-outline-danger btn-sm">Teknik Resim</a>
+												{% endif %}
+											{% endwith %}
+										{% else %}
+											<a href="" class="btn btn-light btn-sm">Teknik Resim</a>
+										{% endif %}
+									</p>
+								{% endif %}
+				      </div>
+				    </div>
+					</div>
+					<div class="row">
+
+						<!-- ileri - geri butonlari -->
+						{% if stoklar.paginator.num_pages > 1 %}
+							<div class="col">
+								{% if stoklar.has_previous %}
+									<a class="btn btn-outline-secondary" href="?page={{ stoklar.previous_page_number}}"> < </a>
+								{% else %}
+									<a class="btn btn-light" href=""> < </a>
+								{% endif %}
+								<a href="{% url 'stok' stok.stok_kodu %}">Seç</a>
+								{% if stoklar.has_next %}
+									<a class="btn btn-outline-secondary" href="?page={{ stoklar.next_page_number }}"> > </a>
+								{% else %}
+									<a class="btn btn-light" href=""> > </a>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>
+					<!-- Stok Agac/Hareket/Siparis bilgileri -->
+					<div class="col">
+						<div class="accordion" id="accordionExample">
+
+							<!-- Stoğun Kullanıldığı Ürünler -->
+						  <div class="accordion-item">
+						    <h2 class="accordion-header" id="headingOne">
+						      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+						        Stoğun Kullanıldığı Ürünler
+						      </button>
+						    </h2>
+						    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+						      <div class="accordion-body">
+										<table class="table table-striped">
+											<tbody>
+												{% for parent in parents %}
+													<tr><th><a href="{% url 'stok' parent.ana_kodu %}">{{parent.ana_kodu}}</a></th></tr>
+												{% endfor %}
+											</tbody>
+										</table>
+						      </div>
+					    	</div>
+							</div>
+
+							<!-- Stok Reçetesi -->
+					  	<div class="accordion-item">
+						    <h2 class="accordion-header" id="headingTwo">
+						      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+						        Stok Reçetesi
+						      </button>
+						    </h2>
+						    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+						      <div class="accordion-body">
+										<table class="table table-striped">
+											<tbody>
+												{% for child in children %}
+													<tr><th><a href="{% url 'stok' child.tuketim_kodu %}">{{child.tuketim_kodu}}</a></th></tr>
+												{% endfor %}
+											</tbody>
+										</table>
+						      </div>
+						    </div>
+						  </div>
+
+							<!-- Stok Hareketleri -->
+						  <div class="accordion-item">
+						    <h2 class="accordion-header" id="headingThree">
+						      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+						        Stok Hareketleri
+						      </button>
+						    </h2>
+						    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+						      <div class="accordion-body">
+										<table class="table table-striped">
+											<thead>
+												<tr><th>TARIH</th><th>GİREN MIKTAR</th><th>ÇIKAN MIKTAR</th><th>RAPORLAR</th></tr>
+											</thead>
+											<tbody>
+												{% for hareket in hareketler %}
+													<tr>
+														<td>{{hareket.hareket_tarih|date:"d m, Y"}}</td>
+														<td>{{giren}}</td>
+														<td>{{hareket.hareket_cikan}}</td>
+														<td>
+															{% for rapor in raporlar %}
+																{% if rapor.rapor_hareket == hareket %}
+																	{% with KLASORLER.TARA|add:rapor.rapor_dosyasi as rapor_dosyasi %}
+																		<a href="{% static rapor_dosyasi %}" target="blank" class="btn btn-outline-secondary btn-sm">{{rapor.rapor_adi.0|add:rapor.rapor_adi.1|add:rapor.rapor_adi.2}}</a>
+																	{% endwith %}
+																{% endif %}
+															{% endfor %}
+														</td>
+													</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+						      </div>
+						    </div>
+						  </div>
+
+							<!-- Siparişler -->
+							<div class="accordion-item">
+						    <h2 class="accordion-header" id="headingFour">
+						      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+						        Siparişler
+						      </button>
+						    </h2>
+						    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+						      <div class="accordion-body">
+										<table class="table table-striped">
+											<thead>
+												<tr><th>TARIH</th><th>MIKTAR</th><th>MUSTERI</th></tr>
+											</thead>
+											<tbody>
+												{% for siparis in siparisler %}
+													<tr><td>{{siparis.siparis_teslimtar|date:"d m, Y"}}</td><td>{{siparis.siparis_kalanmiktar}}</td><td>{{siparis.siparis_musteri}}</td></tr>
+												{% endfor %}
+											</tbody>
+										</table>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</center>
+
+	{% endif %}
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			document.getElementById("header_stoklar").setAttribute("class", "nav-link active");
+		});
+	</script>
+{% endblock %}
